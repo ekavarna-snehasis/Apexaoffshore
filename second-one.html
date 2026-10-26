@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX OFFSHORE 2026 | Asia Pacific Offshore Exploration Symposium</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Anek Devanagari & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        apex: {
+                            navy: '#003c70',      // D1
+                            cyan: '#0499f3',      // D2
+                            lightcyan: '#04bff3', // L1
+                            sky: '#caf6ff',       // L2
+                            slate: '#f4f8fc',     // Background soft tint
+                            cardBg: '#ffffff'
+                        }
+                    },
+                    fontFamily: {
+                        anek: ['"Anek Devanagari"', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'glow': '0 0 25px rgba(4, 153, 243, 0.15)',
+                        'card': '0 10px 30px -5px rgba(0, 60, 112, 0.07), 0 4px 12px -2px rgba(4, 153, 243, 0.05)',
+                        'hover': '0 20px 35px -10px rgba(0, 60, 112, 0.12), 0 8px 20px -4px rgba(4, 191, 243, 0.2)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f8fc;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Sonar Ripple Effect for Light Backgrounds */
+        .sonar-bg {
+            background-image: 
+                radial-gradient(circle at 80% 20%, rgba(4, 191, 243, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 10% 80%, rgba(4, 153, 243, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(202, 246, 255, 0.4) 0%, transparent 70%);
+        }
+
+        .grid-pattern {
+            background-image: linear-gradient(to right, rgba(0, 60, 112, 0.04) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 60, 112, 0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* Wave contours stylized shape animation */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(0.5deg); }
+        }
+
+        .animate-float {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+
+        .active-tab {
+            color: #0499f3 !important;
+            border-bottom: 2px solid #0499f3;
+            font-weight: 700;
+        }
+
+        /* Glassmorphism Light */
+        .glass-panel-light {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(4, 191, 243, 0.2);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f8fc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #04bff3;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0499f3;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-gradient-to-r from-apex-navy via-apex-cyan to-apex-lightcyan text-white text-xs py-2 px-4 text-center font-medium shadow-sm">
+        <span class="inline-block bg-white/20 text-white rounded-full px-2 py-0.5 mr-2 font-bold uppercase text-[10px] tracking-wider">Early Bird Open</span>
+        Register by August 30, 2026 to save 20% on APAC Offshore Delegate Passes. 
+        <button onclick="openModal('registerModal')" class="underline font-semibold hover:text-apex-sky ml-2">Claim Pass &rarr;</button>
+    </div>
+
+    <!-- MAIN HEADER / NAVBAR -->
+    <header class="sticky top-0 z-40 glass-panel-light border-b border-gray-100 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
+                <div class="relative w-11 h-11 flex items-center justify-center bg-white rounded-xl shadow-md border border-apex-sky">
+                    <!-- SVG Logo Lockup: Apex Wave Triangles + Crosshair Target -->
+                    <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Seabed Strata / Apex Contour Lines -->
+                        <path d="M50 12 L85 82 H15 L50 12 Z" stroke="#003c70" stroke-width="5" stroke-linejoin="round"/>
+                        <path d="M50 30 L74 74 H26 L50 30 Z" stroke="#0499f3" stroke-width="4" stroke-linejoin="round"/>
+                        <path d="M50 48 L63 68 H37 L50 48 Z" stroke="#04bff3" stroke-width="3" stroke-linejoin="round"/>
+                        <!-- Exploration Target Dot & Crosshair -->
+                        <circle cx="50" cy="58" r="5" fill="#0499f3" />
+                        <circle cx="50" cy="58" r="9" stroke="#04bff3" stroke-width="1.5" stroke-dasharray="2 2"/>
+                        <line x1="50" y1="44" x2="50" y2="72" stroke="#0499f3" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="36" y1="58" x2="64" y2="58" stroke="#0499f3" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-anek font-extrabold text-2xl tracking-tight text-apex-navy leading-none block">
+                        APEX <span class="text-apex-cyan">OFFSHORE</span>
+                    </span>
+                    <span class="text-[10px] font-bold tracking-widest text-gray-500 uppercase block">
+                        Asia Pacific Exploration 2026
+                    </span>
+                </div>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                <button onclick="navigateTo('home')" id="nav-home" class="nav-btn px-4 py-2 text-sm font-semibold text-gray-700 hover:text-apex-cyan transition-colors active-tab">Home</button>
+                <button onclick="navigateTo('committee')" id="nav-committee" class="nav-btn px-4 py-2 text-sm font-semibold text-gray-700 hover:text-apex-cyan transition-colors">Committee</button>
+                <button onclick="navigateTo('speakers')" id="nav-speakers" class="nav-btn px-4 py-2 text-sm font-semibold text-gray-700 hover:text-apex-cyan transition-colors">Speakers</button>
+                <button onclick="navigateTo('exhibit')" id="nav-exhibit" class="nav-btn px-4 py-2 text-sm font-semibold text-gray-700 hover:text-apex-cyan transition-colors">Exhibit & Sponsor</button>
+                <button onclick="navigateTo('organizer')" id="nav-organizer" class="nav-btn px-4 py-2 text-sm font-semibold text-gray-700 hover:text-apex-cyan transition-colors">Organizer & Venue</button>
+            </nav>
+
+            <!-- Action CTA Buttons -->
+            <div class="hidden lg:flex items-center space-x-3">
+                <button onclick="openModal('abstractModal')" class="text-xs font-bold text-apex-navy border border-apex-cyan hover:bg-apex-sky/40 px-4 py-2.5 rounded-lg transition-all shadow-sm">
+                    Submit Abstract
+                </button>
+                <button onclick="openModal('registerModal')" class="text-xs font-bold text-white bg-gradient-to-r from-apex-navy to-apex-cyan hover:from-apex-cyan hover:to-apex-lightcyan px-5 py-2.5 rounded-lg transition-all shadow-md hover:shadow-glow">
+                    Register Now
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <button onclick="toggleMobileMenu()" class="text-apex-navy p-2 rounded-md hover:bg-apex-sky/30">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-6 space-y-2 shadow-lg">
+            <button onclick="navigateTo('home')" class="block w-full text-left py-2 text-base font-semibold text-apex-navy">Home</button>
+            <button onclick="navigateTo('committee')" class="block w-full text-left py-2 text-base font-semibold text-gray-600">Committee</button>
+            <button onclick="navigateTo('speakers')" class="block w-full text-left py-2 text-base font-semibold text-gray-600">Speakers</button>
+            <button onclick="navigateTo('exhibit')" class="block w-full text-left py-2 text-base font-semibold text-gray-600">Exhibit & Sponsor</button>
+            <button onclick="navigateTo('organizer')" class="block w-full text-left py-2 text-base font-semibold text-gray-600">Organizer & Venue</button>
+            <div class="pt-4 flex flex-col space-y-2">
+                <button onclick="openModal('abstractModal')" class="w-full text-center py-2.5 text-sm font-bold text-apex-navy border border-apex-cyan rounded-lg">Submit Abstract</button>
+                <button onclick="openModal('registerModal')" class="w-full text-center py-2.5 text-sm font-bold text-white bg-apex-cyan rounded-lg">Register Pass</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA (SPA PAGES) -->
+    <main class="flex-grow">
+
+        <!-- PAGE 1: HOME PAGE -->
+        <section id="page-home" class="page-content sonar-bg grid-pattern min-h-screen">
+            <!-- HERO SECTION -->
+            <div class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        
+                        <!-- Hero Left Text Column -->
+                        <div class="lg:col-span-7 space-y-6 text-left">
+                            <div class="inline-flex items-center space-x-2 bg-white/90 border border-apex-lightcyan/60 rounded-full px-4 py-1.5 shadow-sm">
+                                <span class="w-2.5 h-2.5 rounded-full bg-apex-cyan animate-ping"></span>
+                                <span class="text-xs font-bold text-apex-navy uppercase tracking-wider">OCTOBER 14-16, 2026 • MARINA BAY SANDS, SINGAPORE</span>
+                            </div>
+                            
+                            <h1 class="font-anek text-4xl sm:text-5xl lg:text-6xl font-extrabold text-apex-navy leading-tight">
+                                Pioneering the Next Frontier in <span class="text-transparent bg-clip-text bg-gradient-to-r from-apex-cyan to-apex-lightcyan">APAC Offshore</span> Exploration
+                            </h1>
+                            
+                            <p class="text-lg text-gray-600 leading-relaxed max-w-2xl font-normal">
+                                The premier gathering for subsea geoscientists, deepwater engineers, energy leaders, and offshore technology innovators shaping sustainable offshore energy across the Asia-Pacific region.
+                            </p>
+
+                            <!-- CTAs & Interactive Controls -->
+                            <div class="pt-2 flex flex-wrap gap-4 items-center">
+                                <button onclick="openModal('registerModal')" class="px-8 py-4 bg-gradient-to-r from-apex-navy via-apex-cyan to-apex-lightcyan text-white font-bold rounded-xl shadow-card hover:shadow-hover transition-all transform hover:-translate-y-0.5 flex items-center space-x-3">
+                                    <span>Register Delegate Pass</span>
+                                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                                </button>
+                                <button onclick="navigateTo('exhibit')" class="px-8 py-4 bg-white text-apex-navy font-bold border-2 border-apex-cyan/30 hover:border-apex-cyan rounded-xl shadow-sm hover:shadow-md transition-all">
+                                    Explore Exhibition Floor
+                                </button>
+                            </div>
+
+                            <!-- Live Event Quick Stats Bar -->
+                            <div class="pt-8 grid grid-cols-3 gap-4 border-t border-gray-200/80">
+                                <div>
+                                    <div class="text-3xl font-anek font-extrabold text-apex-navy">2,500+</div>
+                                    <div class="text-xs text-gray-500 font-medium">APAC Energy Leaders</div>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-anek font-extrabold text-apex-cyan">120+</div>
+                                    <div class="text-xs text-gray-500 font-medium">Technical Papers</div>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-anek font-extrabold text-apex-navy">85+</div>
+                                    <div class="text-xs text-gray-500 font-medium">Exhibiting Companies</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hero Right Visual Feature Column -->
+                        <div class="lg:col-span-5 relative">
+                            <!-- Depth Strata Interactive Demo Card -->
+                            <div class="bg-white rounded-2xl p-6 shadow-card border border-apex-sky relative z-10 animate-float">
+                                <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-3 h-3 rounded-full bg-apex-cyan"></div>
+                                        <span class="font-bold text-sm text-apex-navy uppercase tracking-wider">Subsea Depth Visualizer</span>
+                                    </div>
+                                    <span class="text-xs text-gray-400 font-mono">Target: 3,400m</span>
+                                </div>
+
+                                <!-- Dynamic Interactive Depth Slider -->
+                                <div class="space-y-4">
+                                    <div id="depthVisualArea" class="h-48 rounded-xl bg-gradient-to-b from-sky-100 via-sky-300 to-indigo-950 p-4 relative overflow-hidden flex flex-col justify-between transition-all duration-300">
+                                        <!-- Overlay contour lines SVG -->
+                                        <svg class="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                            <path d="M0,20 Q50,40 100,10 T100,100 L0,100 Z" fill="#003c70"/>
+                                            <path d="M0,50 Q50,70 100,45 L100,100 L0,100 Z" fill="#0499f3"/>
+                                            <circle cx="65" cy="75" r="4" fill="#caf6ff" />
+                                        </svg>
+
+                                        <div class="relative z-10 text-white font-mono text-xs flex justify-between">
+                                            <span>SEA LEVEL (0m)</span>
+                                            <span class="bg-black/30 px-2 py-0.5 rounded" id="depthReadout">Depth: 1,800m</span>
+                                        </div>
+
+                                        <!-- Target indicator dot moving dynamically -->
+                                        <div id="targetIndicator" class="relative z-10 flex items-center space-x-2 transition-all duration-200" style="margin-top: 40px;">
+                                            <div class="relative flex items-center justify-center">
+                                                <div class="w-6 h-6 rounded-full border-2 border-white animate-ping absolute"></div>
+                                                <div class="w-4 h-4 rounded-full bg-apex-sky border border-white"></div>
+                                            </div>
+                                            <span class="text-xs bg-white text-apex-navy font-bold px-2 py-0.5 rounded shadow">Seismic Target Alpha</span>
+                                        </div>
+
+                                        <div class="relative z-10 text-white font-mono text-xs text-right">
+                                            <span>ABYSSAL BED (4,000m)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-1">
+                                        <div class="flex justify-between text-xs text-gray-500 font-medium">
+                                            <span>Drag Exploration Scanner Depth:</span>
+                                            <span id="sliderVal" class="text-apex-navy font-bold">1,800m</span>
+                                        </div>
+                                        <input type="range" id="depthSlider" min="100" max="3800" value="1800" oninput="updateDepthVisual(this.value)" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-apex-cyan">
+                                    </div>
+
+                                    <div class="p-3 bg-apex-slate rounded-lg text-xs text-gray-600 border border-apex-sky/40">
+                                        <i class="fa-solid fa-circle-info text-apex-cyan mr-1.5"></i>
+                                        <span>Focus Track: <strong id="depthTrackName">Deepwater Reservoir Geophysics</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- BRAND CONCEPT HIGHLIGHT SECTION -->
+            <div class="py-16 bg-white border-y border-gray-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-12">
+                        <h2 class="text-xs font-bold uppercase tracking-widest text-apex-cyan mb-2">The Apex Architecture</h2>
+                        <h3 class="font-anek text-3xl sm:text-4xl font-extrabold text-apex-navy">Decoding the Subsea Basin</h3>
+                        <p class="text-gray-600 mt-3">Combining geological strata precision with targeted energy discovery across the Asia Pacific continental shelves.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Concept Card 1 -->
+                        <div class="p-8 rounded-2xl bg-apex-slate border border-apex-sky/50 shadow-sm hover:shadow-md transition-all">
+                            <div class="w-12 h-12 rounded-xl bg-apex-navy text-apex-sky flex items-center justify-center text-xl mb-6 shadow-sm">
+                                <i class="fa-solid fa-water"></i>
+                            </div>
+                            <h4 class="font-anek text-xl font-bold text-apex-navy mb-2">Seabed Strata Precision</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                Advanced ocean floor mapping and high-resolution 4D seismic telemetry revealing deep regional hydrocarbon and carbon storage reservoirs.
+                            </p>
+                        </div>
+
+                        <!-- Concept Card 2 -->
+                        <div class="p-8 rounded-2xl bg-apex-slate border border-apex-cyan/40 shadow-sm hover:shadow-md transition-all relative overflow-hidden">
+                            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-apex-sky/40 rounded-full blur-xl"></div>
+                            <div class="w-12 h-12 rounded-xl bg-apex-cyan text-white flex items-center justify-center text-xl mb-6 shadow-sm">
+                                <i class="fa-solid fa-crosshairs"></i>
+                            </div>
+                            <h4 class="font-anek text-xl font-bold text-apex-navy mb-2">Targeted Exploration Dot</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                Pinpoint accuracy in offshore drilling deployment, reducing environmental risk while maximizing subsea production yields.
+                            </p>
+                        </div>
+
+                        <!-- Concept Card 3 -->
+                        <div class="p-8 rounded-2xl bg-apex-slate border border-apex-sky/50 shadow-sm hover:shadow-md transition-all">
+                            <div class="w-12 h-12 rounded-xl bg-apex-lightcyan text-apex-navy flex items-center justify-center text-xl mb-6 shadow-sm">
+                                <i class="fa-solid fa-globe-asia"></i>
+                            </div>
+                            <h4 class="font-anek text-xl font-bold text-apex-navy mb-2">APAC Regional Synergy</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                Uniting operators from Malaysia, Indonesia, Australia, China, and Japan to accelerate offshore decarbonization and floating wind technology.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CORE FOCUS TRACKS GRID -->
+            <div class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div>
+                        <h2 class="text-xs font-bold uppercase tracking-widest text-apex-cyan mb-2">Technical Program</h2>
+                        <h3 class="font-anek text-3xl sm:text-4xl font-extrabold text-apex-navy">Symposium Focus Pillars</h3>
+                    </div>
+                    <p class="text-gray-500 text-sm max-w-md mt-4 md:mt-0">
+                        Four multidisciplinary technical tracks tailored for the evolving energy landscape of the Asia-Pacific region.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Track 1 -->
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200/80 hover:border-apex-cyan shadow-card hover:shadow-hover transition-all group">
+                        <div class="text-apex-cyan font-mono text-xs font-bold mb-2">TRACK 01</div>
+                        <h4 class="font-anek text-lg font-bold text-apex-navy group-hover:text-apex-cyan transition-colors mb-3">
+                            Deepwater Exploration & Production
+                        </h4>
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            Ultra-deepwater drilling technologies, HPHT reservoir management, and automated subsea completion systems.
+                        </p>
+                        <span class="inline-flex items-center text-xs font-bold text-apex-navy group-hover:text-apex-cyan">
+                            Learn More <i class="fa-solid fa-chevron-right text-[10px] ml-1 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+
+                    <!-- Track 2 -->
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200/80 hover:border-apex-cyan shadow-card hover:shadow-hover transition-all group">
+                        <div class="text-apex-cyan font-mono text-xs font-bold mb-2">TRACK 02</div>
+                        <h4 class="font-anek text-lg font-bold text-apex-navy group-hover:text-apex-cyan transition-colors mb-3">
+                            Subsea Geophysics & AI Analytics
+                        </h4>
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            Machine learning in seismic inversion, ocean bottom node (OBN) surveying, and 4D imaging algorithms.
+                        </p>
+                        <span class="inline-flex items-center text-xs font-bold text-apex-navy group-hover:text-apex-cyan">
+                            Learn More <i class="fa-solid fa-chevron-right text-[10px] ml-1 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+
+                    <!-- Track 3 -->
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200/80 hover:border-apex-cyan shadow-card hover:shadow-hover transition-all group">
+                        <div class="text-apex-cyan font-mono text-xs font-bold mb-2">TRACK 03</div>
+                        <h4 class="font-anek text-lg font-bold text-apex-navy group-hover:text-apex-cyan transition-colors mb-3">
+                            Offshore Wind & Floating Systems
+                        </h4>
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            Floating foundation engineering, mooring grid integration, and offshore wind geotechnical foundation design.
+                        </p>
+                        <span class="inline-flex items-center text-xs font-bold text-apex-navy group-hover:text-apex-cyan">
+                            Learn More <i class="fa-solid fa-chevron-right text-[10px] ml-1 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+
+                    <!-- Track 4 -->
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200/80 hover:border-apex-cyan shadow-card hover:shadow-hover transition-all group">
+                        <div class="text-apex-cyan font-mono text-xs font-bold mb-2">TRACK 04</div>
+                        <h4 class="font-anek text-lg font-bold text-apex-navy group-hover:text-apex-cyan transition-colors mb-3">
+                            Carbon Capture & Offshore Storage (CCS)
+                        </h4>
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            Saline aquifer storage monitoring, depleted field re-injection, and transboundary carbon logistics networks.
+                        </p>
+                        <span class="inline-flex items-center text-xs font-bold text-apex-navy group-hover:text-apex-cyan">
+                            Learn More <i class="fa-solid fa-chevron-right text-[10px] ml-1 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- PAGE 2: MEET THE COMMITTEE PAGE -->
+        <section id="page-committee" class="page-content hidden py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-apex-cyan mb-2">Governance & Leadership</h2>
+                <h3 class="font-anek text-3xl sm:text-4xl font-extrabold text-apex-navy">Symposium Committee</h3>
+                <p class="text-gray-600 mt-2 text-sm">Guided by distinguished executives and senior geoscientists across major operators and technical institutions.</p>
+
+                <!-- Filter Pills -->
+                <div class="flex flex-wrap justify-center gap-2 mt-8">
+                    <button onclick="filterCommittee('all')" class="comm-filter-btn px-4 py-2 text-xs font-bold rounded-full bg-apex-navy text-white transition-all">All Members</button>
+                    <button onclick="filterCommittee('steering')" class="comm-filter-btn px-4 py-2 text-xs font-bold rounded-full bg-white text-gray-600 hover:bg-apex-sky border border-gray-200 transition-all">Steering Committee</button>
+                    <button onclick="filterCommittee('technical')" class="comm-filter-btn px-4 py-2 text-xs font-bold rounded-full bg-white text-gray-600 hover:bg-apex-sky border border-gray-200 transition-all">Technical Program</button>
+                    <button onclick="filterCommittee('advisory')" class="comm-filter-btn px-4 py-2 text-xs font-bold rounded-full bg-white text-gray-600 hover:bg-apex-sky border border-gray-200 transition-all">Advisory Board</button>
+                </div>
+            </div>
+
+            <!-- Committee Grid -->
+            <div id="committeeGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Members generated dynamically via JavaScript -->
+            </div>
+        </section>
+
+
+        <!-- PAGE 3: OUR SPEAKERS PAGE -->
+        <section id="page-speakers" class="page-content hidden py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 border-b border-gray-200 pb-8">
+                <div>
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-apex-cyan mb-1">World-Class Keynotes</h2>
+                    <h3 class="font-anek text-3xl font-extrabold text-apex-navy">Distinguished Speakers</h3>
+                </div>
+
+                <!-- Search & Topic Filter -->
+                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <div class="relative min-w-[240px]">
+                        <i class="fa-solid fa-search absolute left-3 top-3.5 text-gray-400 text-xs"></i>
+                        <input type="text" id="speakerSearch" onkeyup="filterSpeakers()" placeholder="Search speaker name or company..." class="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-apex-cyan focus:outline-none">
+                    </div>
+                    <select id="speakerTopicFilter" onchange="filterSpeakers()" class="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-xs font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-apex-cyan">
+                        <option value="all">All Topic Tracks</option>
+                        <option value="Subsea Geophysics">Subsea Geophysics</option>
+                        <option value="CCS & Decarbonization">CCS & Decarbonization</option>
+                        <option value="AI Seismic Analytics">AI Seismic Analytics</option>
+                        <option value="Offshore Wind">Offshore Wind</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Speaker Grid -->
+            <div id="speakerGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Speakers generated dynamically -->
+            </div>
+
+            <!-- Call for Papers Callout Banner -->
+            <div class="mt-16 bg-gradient-to-r from-apex-navy via-apex-navy to-apex-cyan text-white rounded-2xl p-8 sm:p-12 shadow-card flex flex-col lg:flex-row items-center justify-between gap-8 relative overflow-hidden">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="bg-apex-lightcyan/20 text-apex-sky border border-apex-lightcyan/40 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Call for Technical Papers</span>
+                    <h4 class="font-anek text-2xl sm:text-3xl font-bold mt-4">Present Your Research at APEX 2026</h4>
+                    <p class="text-sm text-apex-sky/90 mt-2 leading-relaxed">
+                        Submit an extended abstract (max 500 words) in subsea robotics, OBN seismic processing, or offshore decarbonization. Peer-reviewed papers will be published in the APEX Marine Journal.
+                    </p>
+                </div>
+                <div class="relative z-10 whitespace-nowrap">
+                    <button onclick="openModal('abstractModal')" class="bg-white text-apex-navy font-bold px-6 py-3.5 rounded-xl hover:bg-apex-sky transition-colors shadow-lg">
+                        <i class="fa-solid fa-file-arrow-up mr-2 text-apex-cyan"></i>Submit Abstract Now
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- PAGE 4: EXHIBIT & SPONSOR PAGE -->
+        <section id="page-exhibit" class="page-content hidden py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-apex-cyan mb-2">Global Industry Showcase</h2>
+                <h3 class="font-anek text-3xl sm:text-4xl font-extrabold text-apex-navy">Exhibit & Sponsorship Options</h3>
+                <p class="text-gray-600 text-sm mt-2">Position your enterprise directly in front of 2,500+ decision-makers, offshore NOC managers, and technical directors.</p>
+            </div>
+
+            <!-- Sponsorship Tiers Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Tier 1 -->
+                <div class="bg-white rounded-2xl p-8 border-2 border-gray-100 hover:border-apex-cyan shadow-card transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Silver Sonar</div>
+                        <div class="font-anek text-3xl font-extrabold text-apex-navy">$12,500 <span class="text-xs font-normal text-gray-500">USD</span></div>
+                        <ul class="mt-6 space-y-3 text-xs text-gray-600">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-apex-cyan mr-2"></i> 18sqm Prime Exhibition Booth</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-apex-cyan mr-2"></i> 3 Complimentary Full Passes</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-apex-cyan mr-2"></i> Logo on Symposium Website & Guide</li>
+                            <li class="flex items-center text-gray-300"><i class="fa-solid fa-xmark mr-2"></i> Keynote Speaking Slot</li>
+                        </ul>
+                    </div>
+                    <button onclick="openSponsorInquiry('Silver Sonar Tier')" class="w-full mt-8 py-3 bg-apex-slate text-apex-navy font-bold rounded-xl border border-apex-sky hover:bg-apex-sky transition-colors text-xs">Request Silver Package</button>
+                </div>
+
+                <!-- Tier 2 (Featured) -->
+                <div class="bg-white rounded-2xl p-8 border-2 border-apex-cyan shadow-hover transition-all flex flex-col justify-between relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-apex-cyan to-apex-lightcyan text-white text-[10px] font-extrabold px-4 py-1 rounded-full uppercase tracking-wider shadow">Most Popular</div>
+                    <div>
+                        <div class="text-xs font-bold text-apex-cyan uppercase tracking-widest mb-1">Platinum Apex Tier</div>
+                        <div class="font-anek text-3xl font-extrabold text-apex-navy">$35,000 <span class="text-xs font-normal text-gray-500">USD</span></div>
+                        <ul class="mt-6 space-y-3 text-xs text-gray-700">
+                            <li class="flex items-center font-semibold"><i class="fa-solid fa-circle-check text-apex-cyan mr-2"></i> 54sqm Island Exhibition Stand</li>
+                            <li class="flex items-center font-semibold"><i class="fa-solid fa-circle-check text-apex-cyan mr-2"></i> Dedicated Keynote Session Address</li>
+                            <li class="flex items-center font-semibold"><i class="fa-solid fa-circle-check text-apex-cyan mr-2"></i> 10 VIP Delegate All-Access Passes</li>
+                            <li class="flex items-center font-semibold"><i class="fa-solid fa-circle-check text-apex-cyan mr-2"></i> Exclusive Gala Dinner Host Recognition</li>
+                        </ul>
+                    </div>
+                    <button onclick="openSponsorInquiry('Platinum Apex Tier')" class="w-full mt-8 py-3.5 bg-gradient-to-r from-apex-navy to-apex-cyan text-white font-bold rounded-xl shadow hover:shadow-glow transition-all text-xs">Reserve Platinum Rank</button>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="bg-white rounded-2xl p-8 border-2 border-gray-100 hover:border-apex-cyan shadow-card transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Gold Subsea</div>
+                        <div class="font-anek text-3xl font-extrabold text-apex-navy">$22,000 <span class="text-xs font-normal text-gray-500">USD</span></div>
+                        <ul class="mt-6 space-y-3 text-xs text-gray-600">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-apex-cyan mr-2"></i> 36sqm Corner Booth Space</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-apex-cyan mr-2"></i> 6 Complimentary Delegate Passes</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-apex-cyan mr-2"></i> Technical Workshop Hosting Rights</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-apex-cyan mr-2"></i> Full Page Advert in Technical Proceedings</li>
+                        </ul>
+                    </div>
+                    <button onclick="openSponsorInquiry('Gold Subsea Tier')" class="w-full mt-8 py-3 bg-apex-slate text-apex-navy font-bold rounded-xl border border-apex-sky hover:bg-apex-sky transition-colors text-xs">Request Gold Package</button>
+                </div>
+            </div>
+
+            <!-- INTERACTIVE FLOOR PLAN VISUALIZER -->
+            <div class="bg-white rounded-3xl p-6 sm:p-10 border border-apex-sky/60 shadow-card">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4 border-b border-gray-100 pb-6">
+                    <div>
+                        <h4 class="font-anek text-2xl font-bold text-apex-navy">Interactive Exhibition Floorplan</h4>
+                        <p class="text-xs text-gray-500 mt-1">Marina Bay Sands Hall A & B. Click an available booth to inspect details & reserve.</p>
+                    </div>
+                    <!-- Floorplan Status Legend -->
+                    <div class="flex items-center space-x-4 text-xs font-semibold">
+                        <span class="flex items-center"><span class="w-3 h-3 rounded-sm bg-emerald-500 mr-1.5"></span> Available</span>
+                        <span class="flex items-center"><span class="w-3 h-3 rounded-sm bg-amber-400 mr-1.5"></span> Reserved</span>
+                        <span class="flex items-center"><span class="w-3 h-3 rounded-sm bg-gray-400 mr-1.5"></span> Booked</span>
+                    </div>
+                </div>
+
+                <!-- Interactive SVG Map Grid -->
+                <div class="overflow-x-auto bg-apex-slate p-4 rounded-2xl border border-gray-200">
+                    <svg viewBox="0 0 800 400" class="w-full h-auto min-w-[700px] select-none">
+                        <!-- Background Grid Lines -->
+                        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+                        </pattern>
+                        <rect width="800" height="400" fill="url(#grid)" />
+
+                        <!-- Entrance Zone Indicator -->
+                        <rect x="350" y="375" width="100" height="20" fill="#003c70" rx="4"/>
+                        <text x="400" y="389" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">MAIN ENTRANCE</text>
+
+                        <!-- Central Plenary Stage -->
+                        <rect x="250" y="20" width="300" height="60" fill="#0499f3" rx="8" opacity="0.9"/>
+                        <text x="400" y="55" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">KEYNOTE PLENARY & AUDITORIUM</text>
+
+                        <!-- Dynamic Booth Blocks -->
+                        <!-- Row 1: Left Island -->
+                        <g onclick="selectBooth('A101', 'Available', '36 sqm', '$9,000')" class="cursor-pointer hover:opacity-80">
+                            <rect x="50" y="120" width="100" height="80" fill="#10b981" rx="6" stroke="#047857" stroke-width="2"/>
+                            <text x="100" y="155" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">A101</text>
+                            <text x="100" y="175" fill="#ffffff" font-size="9" text-anchor="middle">36 sqm</text>
+                        </g>
+
+                        <g onclick="selectBooth('A102', 'Booked (PETRONAS)', '54 sqm', 'Reserved')" class="cursor-pointer">
+                            <rect x="170" y="120" width="120" height="80" fill="#9ca3af" rx="6"/>
+                            <text x="230" y="155" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">A102 (PETRONAS)</text>
+                            <text x="230" y="175" fill="#ffffff" font-size="9" text-anchor="middle">54 sqm</text>
+                        </g>
+
+                        <g onclick="selectBooth('A103', 'Available', '36 sqm', '$9,000')" class="cursor-pointer hover:opacity-80">
+                            <rect x="310" y="120" width="100" height="80" fill="#10b981" rx="6" stroke="#047857" stroke-width="2"/>
+                            <text x="360" y="155" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">A103</text>
+                            <text x="360" y="175" fill="#ffffff" font-size="9" text-anchor="middle">36 sqm</text>
+                        </g>
+
+                        <g onclick="selectBooth('A104', 'Reserved', '36 sqm', '$9,000')" class="cursor-pointer hover:opacity-80">
+                            <rect x="430" y="120" width="100" height="80" fill="#f59e0b" rx="6"/>
+                            <text x="480" y="155" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">A104 (Hold)</text>
+                            <text x="480" y="175" fill="#ffffff" font-size="9" text-anchor="middle">36 sqm</text>
+                        </g>
+
+                        <g onclick="selectBooth('A105', 'Booked (SHELL)', '72 sqm', 'Reserved')" class="cursor-pointer">
+                            <rect x="550" y="120" width="200" height="80" fill="#9ca3af" rx="6"/>
+                            <text x="650" y="155" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">SHELL APAC (A105)</text>
+                            <text x="650" y="175" fill="#ffffff" font-size="9" text-anchor="middle">72 sqm Premium</text>
+                        </g>
+
+                        <!-- Row 2: Standard Booths -->
+                        <g onclick="selectBooth('B201', 'Available', '18 sqm', '$5,000')" class="cursor-pointer hover:opacity-80">
+                            <rect x="50" y="240" width="80" height="60" fill="#10b981" rx="4"/>
+                            <text x="90" y="270" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">B201</text>
+                        </g>
+
+                        <g onclick="selectBooth('B202', 'Available', '18 sqm', '$5,000')" class="cursor-pointer hover:opacity-80">
+                            <rect x="140" y="240" width="80" height="60" fill="#10b981" rx="4"/>
+                            <text x="180" y="270" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">B202</text>
+                        </g>
+
+                        <g onclick="selectBooth('B203', 'Booked (CGG)', '18 sqm', 'Reserved')" class="cursor-pointer">
+                            <rect x="230" y="240" width="80" height="60" fill="#9ca3af" rx="4"/>
+                            <text x="270" y="270" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">CGG</text>
+                        </g>
+
+                        <g onclick="selectBooth('B204', 'Available', '18 sqm', '$5,000')" class="cursor-pointer hover:opacity-80">
+                            <rect x="490" y="240" width="80" height="60" fill="#10b981" rx="4"/>
+                            <text x="530" y="270" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">B204</text>
+                        </g>
+
+                        <g onclick="selectBooth('B205', 'Available', '18 sqm', '$5,000')" class="cursor-pointer hover:opacity-80">
+                            <rect x="580" y="240" width="80" height="60" fill="#10b981" rx="4"/>
+                            <text x="620" y="270" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">B205</text>
+                        </g>
+                        
+                        <g onclick="selectBooth('B206', 'Reserved', '18 sqm', '$5,000')" class="cursor-pointer hover:opacity-80">
+                            <rect x="670" y="240" width="80" height="60" fill="#f59e0b" rx="4"/>
+                            <text x="710" y="270" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">B206 (Hold)</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Selected Booth Info Panel -->
+                <div id="boothInfoPanel" class="mt-6 p-4 rounded-xl bg-apex-slate border border-apex-sky flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-lg bg-apex-navy text-white flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-map-pin"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-gray-500 font-bold uppercase">Selected Booth Space</div>
+                            <div id="selectedBoothName" class="font-bold text-apex-navy text-base">Click any booth on the grid above</div>
+                        </div>
+                    </div>
+                    <div id="boothActionContainer" class="hidden flex items-center space-x-4">
+                        <span id="boothPriceTag" class="font-mono font-extrabold text-apex-navy text-lg"></span>
+                        <button onclick="openBoothModal()" class="px-5 py-2.5 bg-apex-cyan text-white text-xs font-bold rounded-lg shadow hover:bg-apex-navy transition-all">Request Booth Space</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- PAGE 5: ORGANIZER PAGE -->
+        <section id="page-organizer" class="page-content hidden py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-16">
+                
+                <!-- Organizer Info -->
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-apex-cyan">Organizing Secretariat</span>
+                    <h3 class="font-anek text-3xl sm:text-4xl font-extrabold text-apex-navy">APEX Events Group & APAC Geoscience Society</h3>
+                    <p class="text-gray-600 leading-relaxed text-sm">
+                        APEX OFFSHORE is convened annually by the APAC Marine Geoscience Society in official collaboration with regional NOCs and international energy bodies. Our mission is to bridge technical research with industrial offshore execution.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                        <div class="p-5 rounded-xl bg-white border border-gray-200 shadow-sm">
+                            <i class="fa-solid fa-bullseye text-apex-cyan text-xl mb-2"></i>
+                            <h4 class="font-bold text-apex-navy text-base">Our Vision</h4>
+                            <p class="text-xs text-gray-500 mt-1">To accelerate sustainable offshore exploration and subsea net-zero transitions by 2030.</p>
+                        </div>
+                        <div class="p-5 rounded-xl bg-white border border-gray-200 shadow-sm">
+                            <i class="fa-solid fa-handshake text-apex-cyan text-xl mb-2"></i>
+                            <h4 class="font-bold text-apex-navy text-base">Industry Mandate</h4>
+                            <p class="text-xs text-gray-500 mt-1">Fostering cross-border technical partnerships across 18 Asia-Pacific littoral nations.</p>
+                        </div>
+                    </div>
+
+                    <!-- Previous Editions Timeline -->
+                    <div class="pt-8 border-t border-gray-200">
+                        <h4 class="font-anek text-xl font-bold text-apex-navy mb-4">Symposium Timeline & Legacy</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-16 font-mono text-xs font-bold text-apex-cyan pt-0.5">2025</div>
+                                <div>
+                                    <div class="text-sm font-bold text-apex-navy">Kuala Lumpur edition (KLCC)</div>
+                                    <div class="text-xs text-gray-500">Focused on Deepwater OBN seismic technologies and CCS licensing.</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-16 font-mono text-xs font-bold text-apex-cyan pt-0.5">2024</div>
+                                <div>
+                                    <div class="text-sm font-bold text-apex-navy">Jakarta edition (JCC)</div>
+                                    <div class="text-xs text-gray-500">Unveiled major offshore natural gas discovery frameworks in Natuna basin.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Venue Info & Map Mockup -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-apex-sky shadow-card">
+                    <h4 class="font-anek text-xl font-bold text-apex-navy mb-2">Host Venue & Location</h4>
+                    <p class="text-xs text-gray-500 mb-4">Marina Bay Sands Expo & Convention Centre, 10 Bayfront Ave, Singapore 018956</p>
+
+                    <!-- Mock Map Visual -->
+                    <div class="h-56 bg-sky-50 rounded-xl relative overflow-hidden border border-gray-200 flex items-center justify-center mb-4">
+                        <svg class="absolute inset-0 w-full h-full opacity-40" viewBox="0 0 400 250">
+                            <path d="M 0,80 Q 100,120 200,60 T 400,100" fill="none" stroke="#0499f3" stroke-width="4"/>
+                            <path d="M 0,160 Q 150,180 300,120 T 400,190" fill="none" stroke="#003c70" stroke-width="3"/>
+                            <circle cx="210" cy="110" r="12" fill="#0499f3" opacity="0.3"/>
+                        </svg>
+                        <div class="relative z-10 text-center">
+                            <i class="fa-solid fa-location-dot text-3xl text-apex-navy mb-1 animate-bounce"></i>
+                            <div class="bg-apex-navy text-white text-xs font-bold px-3 py-1 rounded-full shadow">Marina Bay Sands, Singapore</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 text-xs text-gray-600">
+                        <div class="flex justify-between py-1 border-b border-gray-100">
+                            <span class="font-medium text-gray-500">Official Hotel Partner:</span>
+                            <span class="font-semibold text-apex-navy">Marina Bay Sands Luxury Suites</span>
+                        </div>
+                        <div class="flex justify-between py-1 border-b border-gray-100">
+                            <span class="font-medium text-gray-500">Nearest Airport:</span>
+                            <span class="font-semibold text-apex-navy">Singapore Changi (SIN) - 20 mins</span>
+                        </div>
+                        <div class="flex justify-between py-1">
+                            <span class="font-medium text-gray-500">Delegate Shuttle Service:</span>
+                            <span class="font-semibold text-apex-cyan">Complimentary Daily Transfers</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FAQ ACCORDION -->
+            <div class="max-w-4xl mx-auto pt-8 border-t border-gray-200">
+                <div class="text-center mb-8">
+                    <h3 class="font-anek text-2xl font-bold text-apex-navy">Frequently Asked Questions</h3>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-white rounded-xl border border-gray-200 p-4 cursor-pointer" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center font-bold text-sm text-apex-navy">
+                            <span>When is the deadline for delegate registration?</span>
+                            <i class="fa-solid fa-chevron-down text-apex-cyan transition-transform"></i>
+                        </div>
+                        <div class="faq-ans hidden text-xs text-gray-600 mt-3 leading-relaxed">
+                            Early bird pricing ends on August 30, 2026. Regular delegate passes will remain available online until October 10, 2026. On-site registration is subject to venue capacity.
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gray-200 p-4 cursor-pointer" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center font-bold text-sm text-apex-navy">
+                            <span>Are technical proceedings included in the pass?</span>
+                            <i class="fa-solid fa-chevron-down text-apex-cyan transition-transform"></i>
+                        </div>
+                        <div class="faq-ans hidden text-xs text-gray-600 mt-3 leading-relaxed">
+                            Yes, all registered delegates receive full digital access to the APEX Technical Papers Library, including downloadable PDFs of all 120+ presented research abstracts.
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gray-200 p-4 cursor-pointer" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center font-bold text-sm text-apex-navy">
+                            <span>How do I claim CPE or technical accreditation credits?</span>
+                            <i class="fa-solid fa-chevron-down text-apex-cyan transition-transform"></i>
+                        </div>
+                        <div class="faq-ans hidden text-xs text-gray-600 mt-3 leading-relaxed">
+                            Certificates of Technical Attendance will be issued automatically via email to all attendees after scanning into at least 4 technical track sessions.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-apex-navy text-white pt-16 pb-12 border-t border-apex-cyan/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand Info -->
+                <div class="space-y-4 md:col-span-1">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
+                            <svg width="22" height="22" viewBox="0 0 100 100" fill="none">
+                                <path d="M50 12 L85 82 H15 L50 12 Z" stroke="#003c70" stroke-width="6"/>
+                                <path d="M50 30 L74 74 H26 L50 30 Z" stroke="#0499f3" stroke-width="5"/>
+                                <circle cx="50" cy="58" r="6" fill="#0499f3"/>
+                            </svg>
+                        </div>
+                        <span class="font-anek font-extrabold text-xl tracking-tight text-white">APEX OFFSHORE</span>
+                    </div>
+                    <p class="text-xs text-apex-sky/70 leading-relaxed">
+                        The definitive Asia-Pacific Offshore Exploration & Subsea Energy Conference. Connecting geoscientists and operators across APAC.
+                    </p>
+                </div>
+
+                <!-- Navigation Quick Links -->
+                <div>
+                    <h5 class="font-anek font-bold text-sm text-apex-sky mb-4">Quick Links</h5>
+                    <ul class="space-y-2 text-xs text-gray-300">
+                        <li><button onclick="navigateTo('home')" class="hover:text-apex-lightcyan">Home Overview</button></li>
+                        <li><button onclick="navigateTo('committee')" class="hover:text-apex-lightcyan">Steering Committee</button></li>
+                        <li><button onclick="navigateTo('speakers')" class="hover:text-apex-lightcyan">Keynote Speakers</button></li>
+                        <li><button onclick="navigateTo('exhibit')" class="hover:text-apex-lightcyan">Exhibition Floorplan</button></li>
+                    </ul>
+                </div>
+
+                <!-- Focus Pillars -->
+                <div>
+                    <h5 class="font-anek font-bold text-sm text-apex-sky mb-4">Focus Pillars</h5>
+                    <ul class="space-y-2 text-xs text-gray-300">
+                        <li>Subsea Geophysics & Seismic</li>
+                        <li>Deepwater Hydrocarbon E&P</li>
+                        <li>Offshore & Floating Wind</li>
+                        <li>Carbon Capture & Subsurface Storage</li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Secretarial -->
+                <div>
+                    <h5 class="font-anek font-bold text-sm text-apex-sky mb-4">Secretariat Contact</h5>
+                    <div class="space-y-2 text-xs text-gray-300">
+                        <p><i class="fa-solid fa-envelope text-apex-cyan mr-2"></i> secretariat@apex-offshore.org</p>
+                        <p><i class="fa-solid fa-phone text-apex-cyan mr-2"></i> +65 6789 0123 (Singapore HQ)</p>
+                        <p><i class="fa-solid fa-location-dot text-apex-cyan mr-2"></i> Marina Bay Sands, Singapore</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400">
+                <p>&copy; 2026 APEX OFFSHORE Symposium. All Rights Reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-apex-sky">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="#" class="hover:text-apex-sky">Terms of Registration</a>
+                    <span>•</span>
+                    <a href="#" class="hover:text-apex-sky">Code of Conduct</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- MODALS SECTION -->
+
+    <!-- Modal 1: Delegate Registration -->
+    <div id="registerModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-apex-sky relative animate-fade-in">
+            <button onclick="closeModal('registerModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="font-anek text-2xl font-bold text-apex-navy mb-1">Delegate Pass Registration</h3>
+            <p class="text-xs text-gray-500 mb-6">APEX OFFSHORE 2026 • Singapore</p>
+
+            <form onsubmit="handleFormSubmit(event, 'Registration Pass Request Received!')" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Full Name</label>
+                    <input type="text" required placeholder="Dr. Sarah Jenkins" class="w-full px-4 py-2.5 bg-apex-slate border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-apex-cyan focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Corporate Email</label>
+                    <input type="email" required placeholder="s.jenkins@petronas.com" class="w-full px-4 py-2.5 bg-apex-slate border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-apex-cyan focus:outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Organization</label>
+                        <input type="text" required placeholder="Petronas / Shell / CGG" class="w-full px-4 py-2.5 bg-apex-slate border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-apex-cyan focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Pass Category</label>
+                        <select class="w-full px-4 py-2.5 bg-apex-slate border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-apex-cyan focus:outline-none">
+                            <option>Full Delegate ($1,450)</option>
+                            <option>Presenter / Author ($950)</option>
+                            <option>Exhibition Visitor ($250)</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-apex-navy to-apex-cyan text-white font-bold rounded-xl text-xs shadow hover:shadow-glow transition-all mt-4">Complete Registration & Pay</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Submit Abstract -->
+    <div id="abstractModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-apex-sky relative">
+            <button onclick="closeModal('abstractModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="font-anek text-2xl font-bold text-apex-navy mb-1">Call for Papers Submission</h3>
+            <p class="text-xs text-gray-500 mb-6">Submit your extended technical summary for peer review.</p>
+
+            <form onsubmit="handleFormSubmit(event, 'Abstract Submitted for Peer Review!')" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Paper Title</label>
+                    <input type="text" required placeholder="e.g. Deepwater OBN Seismic Imaging in Malay Basin" class="w-full px-4 py-2.5 bg-apex-slate border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-apex-cyan focus:outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Primary Author</label>
+                        <input type="text" required placeholder="Lead Researcher Name" class="w-full px-4 py-2.5 bg-apex-slate border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-apex-cyan focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Technical Pillar</label>
+                        <select class="w-full px-4 py-2.5 bg-apex-slate border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-apex-cyan focus:outline-none">
+                            <option>Subsea Geophysics</option>
+                            <option>Deepwater E&P</option>
+                            <option>Offshore Wind</option>
+                            <option>CCS Storage</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Abstract Summary (Max 500 words)</label>
+                    <textarea rows="4" required placeholder="Provide brief objectives, methodology, and key geological/engineering findings..." class="w-full px-4 py-2.5 bg-apex-slate border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-apex-cyan focus:outline-none"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-apex-navy text-white font-bold rounded-xl text-xs hover:bg-apex-cyan transition-colors">Submit Abstract Draft</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 3: Speaker Detail Bio -->
+    <div id="speakerModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-apex-sky relative">
+            <button onclick="closeModal('speakerModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            
+            <div id="modalSpeakerContent">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Booth Booking Request -->
+    <div id="boothModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-apex-sky relative">
+            <button onclick="closeModal('boothModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="font-anek text-2xl font-bold text-apex-navy mb-1">Reserve Booth <span id="modalBoothCode" class="text-apex-cyan"></span></h3>
+            <p class="text-xs text-gray-500 mb-4">Request space hold on the exhibition floor.</p>
+
+            <form onsubmit="handleFormSubmit(event, 'Exhibition Space Request Received!')" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Company Name</label>
+                    <input type="text" required placeholder="e.g. SLB / Baker Hughes" class="w-full px-4 py-2 bg-apex-slate border border-gray-200 rounded-xl text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Contact Person</label>
+                    <input type="text" required placeholder="Exhibits Director Name" class="w-full px-4 py-2 bg-apex-slate border border-gray-200 rounded-xl text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Email</label>
+                    <input type="email" required placeholder="exhibits@company.com" class="w-full px-4 py-2 bg-apex-slate border border-gray-200 rounded-xl text-xs">
+                </div>
+                <button type="submit" class="w-full py-3 bg-apex-cyan text-white font-bold rounded-xl text-xs hover:bg-apex-navy transition-colors">Confirm Space Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-apex-navy text-white px-6 py-4 rounded-xl shadow-2xl border border-apex-cyan flex items-center space-x-3 transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-apex-cyan text-lg"></i>
+        <span id="toastMsg" class="text-xs font-bold"></span>
+    </div>
+
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        // DATA MODEL FOR COMMITTEE MEMBERS
+        const committeeData = [
+            { name: "Tan Sri Ahmad Rashid", category: "steering", title: "VP Exploration", org: "PETRONAS", bio: "Over 25 years guiding offshore exploration across Malaysia and South China Sea deepwater blocks." },
+            { name: "Dr. Elena Rostova", category: "technical", title: "Chief Subsea Geophysicist", org: "Shell APAC", bio: "Pioneer in high-resolution OBN seismic inversion and machine learning fault interpretation." },
+            { name: "Budi Santoso", category: "steering", title: "Director of Offshore Technology", org: "PTTEP", bio: "Leads deepwater drilling and subsea gas asset developments in the Gulf of Thailand." },
+            { name: "Hiroshi Tanaka", category: "advisory", title: "Senior Fellow", org: "INPEX Japan", bio: "Expert in offshore hydrogen infrastructure and CCS geological reservoir characterization." },
+            { name: "Dr. Chen Wei", category: "technical", title: "Head of Marine Geosciences", org: "CNOOC", bio: "Specialist in deepwater continental margin strata mapping and natural gas hydrate recovery." },
+            { name: "Capt. Liam O'Connor", category: "advisory", title: "Director of Marine Operations", org: "Woodside Energy", bio: "Over 30 years in FPSO operations and harsh offshore environment logistics." }
+        ];
+
+        // DATA MODEL FOR SPEAKERS
+        const speakerData = [
+            { 
+                id: 1, 
+                name: "Dr. Marcus Vance", 
+                org: "CGG Geoscience", 
+                topic: "AI Seismic Analytics", 
+                title: "Next-Gen Machine Learning in Subsea Fault Inversion",
+                bio: "Dr. Vance leads deep-learning seismic algorithms for complex pre-stack depth migration in deepwater salt basins." 
+            },
+            { 
+                id: 2, 
+                name: "Amina Al-Mansoor", 
+                org: "SLB Subsea Solutions", 
+                topic: "Subsea Geophysics", 
+                title: "Autonomous Ocean Bottom Nodes (OBN) Deployment at 3,000m",
+                bio: "Amina oversees deepwater autonomous subsea robotics for dense grid ocean bottom node seismic collection." 
+            },
+            { 
+                id: 3, 
+                name: "Prof. David Miller", 
+                org: "National University of Singapore", 
+                topic: "CCS & Decarbonization", 
+                title: "Sub-Seabed Carbon Sequestration Integrity Monitoring",
+                bio: "Prof. Miller is a renowned researcher in saline aquifer CO2 containment and 4D seismic leak detection." 
+            },
+            { 
+                id: 4, 
+                name: "Sirisha Naidu", 
+                org: "Equinor APAC", 
+                topic: "Offshore Wind", 
+                title: "Integrating Floating Wind Arrays with Offshore Subsea Fields",
+                bio: "Sirisha specializes in hybrid offshore renewable systems, powering subsea pumps via floating wind turbines." 
+            }
+        ];
+
+        // INITIALIZATION
+        window.onload = function() {
+            renderCommittee('all');
+            renderSpeakers(speakerData);
+        };
+
+        // SPA NAVIGATION SYSTEM
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => page.classList.add('hidden'));
+            
+            // Show target page
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+
+            // Update Nav Buttons Active state
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active-tab'));
+            const activeBtn = document.getElementById(`nav-${pageId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active-tab');
+            }
+
+            // Close mobile menu if open
+            document.getElementById('mobileMenu').classList.add('hidden');
+
+            // Scroll top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // MOBILE MENU TOGGLE
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // INTERACTIVE DEPTH VISUALIZER SLIDER (HOME HERO)
+        function updateDepthVisual(val) {
+            document.getElementById('sliderVal').innerText = `${val}m`;
+            document.getElementById('depthReadout').innerText = `Depth: ${val}m`;
+
+            const targetInd = document.getElementById('targetIndicator');
+            // Move indicator vertically based on slider percentage
+            const percentage = (val / 3800) * 100;
+            targetInd.style.marginTop = `${Math.min(percentage * 1.4, 130)}px`;
+
+            // Dynamic text updates based on depth level
+            const trackText = document.getElementById('depthTrackName');
+            if (val < 1000) {
+                trackText.innerText = "Shallow Water & Offshore Wind Geotechnics";
+            } else if (val < 2500) {
+                trackText.innerText = "Deepwater Reservoir Geophysics & OBN";
+            } else {
+                trackText.innerText = "Ultra-Deep Seabed Strata & Carbon Storage";
+            }
+        }
+
+        // RENDER COMMITTEE GRID
+        function renderCommittee(filter) {
+            const grid = document.getElementById('committeeGrid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' 
+                ? committeeData 
+                : committeeData.filter(item => item.category === filter);
+
+            filtered.forEach(member => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl border border-gray-200/80 hover:border-apex-cyan shadow-card hover:shadow-hover transition-all text-center flex flex-col items-center justify-between";
+                card.innerHTML = `
+                    <div class="w-20 h-20 rounded-full bg-apex-slate border-2 border-apex-cyan flex items-center justify-center text-apex-navy font-bold text-2xl mb-4 shadow-sm">
+                        ${member.name.charAt(0)}${member.name.split(' ')[1] ? member.name.split(' ')[1].charAt(0) : ''}
+                    </div>
+                    <div class="text-xs font-bold text-apex-cyan uppercase mb-1 tracking-wider">${member.org}</div>
+                    <h4 class="font-anek font-bold text-lg text-apex-navy mb-1">${member.name}</h4>
+                    <p class="text-xs text-gray-500 font-medium mb-3">${member.title}</p>
+                    <p class="text-xs text-gray-600 leading-relaxed border-t border-gray-100 pt-3">${member.bio}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCommittee(cat) {
+            renderCommittee(cat);
+            // Toggle active style on buttons
+            document.querySelectorAll('.comm-filter-btn').forEach(btn => {
+                btn.className = "comm-filter-btn px-4 py-2 text-xs font-bold rounded-full bg-white text-gray-600 hover:bg-apex-sky border border-gray-200 transition-all";
+            });
+            event.target.className = "comm-filter-btn px-4 py-2 text-xs font-bold rounded-full bg-apex-navy text-white transition-all";
+        }
+
+        // RENDER SPEAKERS GRID
+        function renderSpeakers(list) {
+            const grid = document.getElementById('speakerGrid');
+            grid.innerHTML = '';
+
+            list.forEach(sp => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl border border-gray-200 shadow-card hover:shadow-hover transition-all flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-apex-sky/50 text-apex-navy border border-apex-lightcyan/40 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">${sp.topic}</span>
+                            <span class="text-xs text-gray-400 font-semibold">${sp.org}</span>
+                        </div>
+                        <h4 class="font-anek text-xl font-bold text-apex-navy mb-2">${sp.name}</h4>
+                        <p class="text-xs font-semibold text-apex-cyan mb-3">${sp.title}</p>
+                        <p class="text-xs text-gray-600 leading-relaxed line-clamp-3 mb-6">${sp.bio}</p>
+                    </div>
+                    <button onclick="openSpeakerModal(${sp.id})" class="w-full py-2.5 bg-apex-slate text-apex-navy font-bold text-xs rounded-xl border border-apex-sky hover:bg-apex-sky transition-colors">
+                        View Full Profile & Session
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // FILTER SPEAKERS
+        function filterSpeakers() {
+            const query = document.getElementById('speakerSearch').value.toLowerCase();
+            const topic = document.getElementById('speakerTopicFilter').value;
+
+            const filtered = speakerData.filter(sp => {
+                const matchesSearch = sp.name.toLowerCase().includes(query) || sp.org.toLowerCase().includes(query);
+                const matchesTopic = (topic === 'all') || (sp.topic === topic);
+                return matchesSearch && matchesTopic;
+            });
+
+            renderSpeakers(filtered);
+        }
+
+        // SPEAKER MODAL
+        function openSpeakerModal(id) {
+            const sp = speakerData.find(item => item.id === id);
+            if (!sp) return;
+
+            const modalContent = document.getElementById('modalSpeakerContent');
+            modalContent.innerHTML = `
+                <span class="bg-apex-sky/50 text-apex-navy text-[10px] font-bold px-3 py-1 rounded-full uppercase">${sp.topic}</span>
+                <h3 class="font-anek text-2xl font-bold text-apex-navy mt-3">${sp.name}</h3>
+                <p class="text-xs text-apex-cyan font-bold mb-4">${sp.org}</p>
+                <div class="p-4 bg-apex-slate rounded-xl border border-apex-sky mb-4">
+                    <div class="text-[11px] font-bold text-gray-500 uppercase">Keynote Presentation:</div>
+                    <div class="text-sm font-bold text-apex-navy mt-0.5">${sp.title}</div>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed mb-6">${sp.bio}</p>
+                <button onclick="closeModal('speakerModal'); openModal('registerModal');" class="w-full py-3 bg-apex-navy text-white font-bold rounded-xl text-xs hover:bg-apex-cyan transition-colors">Book Keynote Session Seat</button>
+            `;
+
+            openModal('speakerModal');
+        }
+
+        // FLOOR PLAN INTERACTION
+        function selectBooth(code, status, size, price) {
+            const panelName = document.getElementById('selectedBoothName');
+            const actionContainer = document.getElementById('boothActionContainer');
+            const priceTag = document.getElementById('boothPriceTag');
+
+            panelName.innerText = `Booth ${code} • ${size} (${status})`;
+
+            if (status === 'Available') {
+                actionContainer.classList.remove('hidden');
+                priceTag.innerText = price;
+                document.getElementById('modalBoothCode').innerText = code;
+            } else {
+                actionContainer.classList.add('hidden');
+            }
+        }
+
+        function openBoothModal() {
+            openModal('boothModal');
+        }
+
+        function openSponsorInquiry(tierName) {
+            showToast(`Inquiry initiated for ${tierName}. Contacting secretariat...`);
+        }
+
+        // FAQ ACCORDION TOGGLE
+        function toggleFaq(element) {
+            const ans = element.querySelector('.faq-ans');
+            const icon = element.querySelector('.fa-chevron-down');
+            ans.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // MODAL HELPERS
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // FORM SUBMISSION & TOAST NOTIFICATION
+        function handleFormSubmit(event, message) {
+            event.preventDefault();
+            // Close active modal
+            document.querySelectorAll('[id$="Modal"]').forEach(modal => modal.classList.add('hidden'));
+            showToast(message);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
